@@ -1,0 +1,194 @@
+openapi: 3.1.0
+info:
+  title: SizoCare Public API
+  version: "1.0.0"
+  description: Public API for the SizoCare caregiver companion platform.
+servers:
+  - url: https://api.sizocare.com
+paths:
+  /v1/companion/conversations/{conversation_id}/messages:
+    post:
+      summary: Post a message to a conversation
+      parameters:
+        - name: conversation_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - content
+              properties:
+                content:
+                  type: string
+      responses:
+        "200":
+          description: Message posted successfully
+  /v1/care-recipients/{care_recipient_id}/case-facts:
+    post:
+      summary: Post a case fact for a care recipient
+      parameters:
+        - name: care_recipient_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - fact_type
+                - content
+                - provenance
+              properties:
+                fact_type:
+                  type: string
+                content:
+                  type: string
+                provenance:
+                  type: string
+      responses:
+        "201":
+          description: Case fact created
+  /v1/care-recipients/{care_recipient_id}/documents:
+    post:
+      summary: Upload a document for processing
+      parameters:
+        - name: care_recipient_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - file_name
+                - file_size
+                - content_type
+              properties:
+                file_name:
+                  type: string
+                file_size:
+                  type: integer
+                content_type:
+                  type: string
+      responses:
+        "201":
+          description: Document upload initiated
+  /v1/care-recipients/{care_recipient_id}/logs:
+    post:
+      summary: Create a daily log
+      parameters:
+        - name: care_recipient_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - category
+                - content
+              properties:
+                category:
+                  type: string
+                content:
+                  type: string
+                severity_score:
+                  type: integer
+                observed_at:
+                  type: string
+                  format: date-time
+      responses:
+        "201":
+          description: Daily log created
+  /v1/care-recipients/{care_recipient_id}/medications/{medication_id}/events:
+    post:
+      summary: Record a medication event
+      parameters:
+        - name: care_recipient_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: medication_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - status
+              properties:
+                status:
+                  type: string
+                actual_time:
+                  type: string
+                  format: date-time
+                notes:
+                  type: string
+      responses:
+        "201":
+          description: Medication event recorded
+  /v1/care-recipients/{care_recipient_id}/summaries/generate:
+    post:
+      summary: Generate a periodic summary
+      parameters:
+        - name: care_recipient_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - period_start
+                - period_end
+              properties:
+                period_start:
+                  type: string
+                  format: date-time
+                period_end:
+                  type: string
+                  format: date-time
+      responses:
+        "202":
+          description: Summary generation started
+  /v1/crisis-resources:
+    get:
+      summary: Retrieve crisis resources
+      responses:
+        "200":
+          description: Crisis resources retrieved

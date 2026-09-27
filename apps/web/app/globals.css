@@ -1,0 +1,332 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  ::selection {
+    background: #b9d4cb;
+    color: #18362f;
+  }
+
+  body {
+    @apply bg-bg text-ink antialiased;
+    min-width: 320px;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
+
+  :focus-visible {
+    outline: 3px solid #2e574f;
+    outline-offset: 3px;
+  }
+}
+
+@layer components {
+  .wordmark { @apply font-serif text-2xl font-semibold text-teal-deep no-underline; letter-spacing: -0.03em; }
+  .auth-shell { @apply grid min-h-screen lg:grid-cols-[minmax(0,1.05fr)_minmax(420px,0.95fr)]; }
+  .auth-story { @apply relative flex min-h-[42vh] flex-col justify-between overflow-hidden bg-teal-deep px-6 py-7 text-white sm:px-10 lg:min-h-screen lg:px-[8vw] lg:py-12; }
+  .auth-story::after { content: ''; position: absolute; right: -12rem; bottom: -17rem; width: 34rem; height: 34rem; border: 1px solid rgba(255,255,255,.14); border-radius: 48% 52% 42% 58%; box-shadow: 0 0 0 5rem rgba(255,255,255,.035), 0 0 0 10rem rgba(255,255,255,.025); transform: rotate(-17deg); }
+  .auth-story .wordmark { @apply relative z-10 text-white; }
+  .story-copy { @apply relative z-10 my-16 max-w-2xl lg:my-24; }
+  .story-copy h1, .onboarding-content h1, .onboarding-gate h1 { @apply font-serif text-4xl font-medium leading-[1.08] sm:text-5xl lg:text-6xl; letter-spacing: -0.035em; }
+  .story-copy p { @apply mt-6 max-w-xl text-lg leading-8 text-[#d9e8e3]; }
+  .privacy-note { @apply relative z-10 max-w-md border-t border-white/20 pt-5 text-sm text-[#d9e8e3]; }
+  .privacy-note span { @apply font-semibold text-white; }
+  .privacy-note p { @apply mt-1 leading-6; }
+  .auth-workspace { @apply flex flex-col items-center justify-center bg-panel px-5 py-10 sm:px-10 lg:px-[7vw]; }
+  .auth-panel { @apply w-full max-w-md; }
+  .auth-tabs { @apply mb-8 grid grid-cols-2 border-b; }
+  .auth-tab { @apply -mb-px min-h-12 border-b-2 border-transparent px-3 text-sm font-semibold text-ink-soft transition-colors; }
+  .auth-tab[aria-pressed='true'] { @apply border-teal text-teal-deep; }
+  .auth-form { @apply flex flex-col gap-5; }
+  .google-action { @apply flex min-h-12 items-center justify-center gap-3 rounded-md border bg-panel px-4 font-semibold text-ink shadow-[0_2px_8px_rgba(36,49,45,.04)] transition hover:bg-panel-2; }
+  .google-action span { @apply flex h-6 w-6 items-center justify-center rounded-full bg-white font-bold text-[#4285f4]; }
+  .auth-divider { @apply relative my-1 border-t text-center; }
+  .auth-divider span { @apply relative -top-3 bg-panel px-3 text-xs font-normal text-ink-soft; }
+  .auth-form > label { @apply flex flex-col gap-2 text-sm font-semibold; }
+  .auth-form input[type='email'], .auth-form input[type='password'], .auth-form input[type='text'] { @apply h-12 rounded-md border bg-panel px-4 text-base font-normal text-ink shadow-[0_2px_8px_rgba(36,49,45,0.04)] outline-none transition; }
+  .auth-form input:focus { @apply border-teal ring-2 ring-teal/20; }
+  .auth-form small { @apply font-normal text-ink-soft; }
+  .disclaimer, .onboarding-gate { @apply border-y border-border bg-panel-2 py-5; }
+  .disclaimer legend { @apply px-2 font-serif text-xl font-semibold; }
+  .disclaimer > p { @apply mb-4 text-sm leading-6 text-ink-soft; }
+  .check-row { @apply flex min-h-12 cursor-pointer items-start gap-3 rounded-md px-3 py-3 text-sm font-normal leading-6 transition hover:bg-teal-tint; }
+  .check-row input { @apply mt-0.5 h-5 w-5 shrink-0 accent-teal; }
+  .password-field { @apply relative block; }
+  .password-field input { @apply w-full pr-12; }
+  .password-toggle { @apply absolute inset-y-0 right-0 flex w-12 items-center justify-center text-ink-soft transition hover:text-teal-deep; }
+  .password-toggle svg { @apply h-5 w-5; }
+  .primary-action { @apply min-h-12 w-full rounded-md bg-teal px-5 font-semibold text-white shadow-[0_7px_18px_rgba(63,114,104,0.2)] transition hover:bg-teal-deep disabled:cursor-not-allowed disabled:opacity-55; }
+  .text-action { @apply min-h-11 text-sm font-semibold text-teal-deep underline decoration-teal/30 underline-offset-4 hover:decoration-teal; }
+  .form-message { @apply rounded-md bg-teal-tint px-4 py-3 text-sm leading-6 text-teal-deep; }
+  .form-message.error { @apply bg-terracotta-tint text-[#743d2e]; }
+  .crisis-line { @apply mt-8 flex max-w-lg flex-col items-center gap-1 text-center text-xs leading-5 text-ink-soft; text-wrap: balance; }
+  .crisis-contacts { @apply flex flex-wrap items-center justify-center gap-x-2; }
+  .crisis-contacts a { @apply font-medium text-teal-deep underline decoration-teal/30 underline-offset-2 hover:decoration-teal; }
+  .onboarding-shell { @apply mx-auto flex min-h-screen max-w-6xl flex-col px-5 py-6 sm:px-10 lg:px-12; }
+  .app-header { @apply flex items-center justify-between border-b pb-5; }
+  .onboarding-content, .onboarding-gate { @apply mx-auto my-auto w-full max-w-2xl py-12 sm:py-20; }
+  .onboarding-gate { @apply rounded-lg border-0 bg-panel p-6 shadow-card sm:p-10; }
+  .onboarding-gate > p, .onboarding-content .lead { @apply my-6 text-lg leading-8 text-ink-soft; }
+  .progress-marker { @apply mb-8 h-1 w-28 overflow-hidden rounded-full bg-border; }
+  .progress-marker span { @apply block h-full w-1/3 bg-gold; }
+  .next-step { @apply mt-10 border-t border-teal/25 pt-7; }
+  .next-step > p:first-child { @apply mb-2 text-sm font-semibold text-teal-deep; }
+  .next-step h2 { @apply font-serif text-2xl font-semibold; }
+  .next-step h2 + p { @apply mb-6 mt-3 leading-7 text-ink-soft; }
+  .boundary-note { @apply mt-6 text-sm leading-6 text-ink-soft; }
+  .profile-form, .log-form, .inline-form, .dose-form { @apply flex flex-col gap-6; }
+  .profile-form label, .log-form > label, .inline-form > label, .dose-form > label { @apply flex flex-col gap-2 text-sm font-semibold; }
+  .profile-form input, .profile-form select, .profile-form textarea, .log-form input, .log-form textarea, .inline-form input, .dose-form input { @apply min-h-12 rounded-md border bg-panel px-4 py-3 text-base font-normal outline-none transition focus:border-teal focus:ring-2 focus:ring-teal/20; }
+  input::placeholder, textarea::placeholder { @apply text-[#687770] opacity-100; }
+  .profile-form small, .log-form small, .inline-form small, .dose-form small { @apply font-normal text-ink-soft; }
+  .form-grid { @apply grid gap-5 sm:grid-cols-2; }
+  .story-field { @apply mt-2; }
+
+  .product-shell { @apply min-h-screen lg:grid lg:grid-cols-[250px_minmax(0,1fr)]; }
+  .skip-link { @apply fixed left-4 top-3 z-50 -translate-y-20 rounded-md bg-ink px-4 py-3 font-semibold text-white focus:translate-y-0; }
+  .app-sidebar { @apply fixed inset-y-0 left-0 z-20 hidden w-[250px] flex-col border-r bg-[#f7faf6] px-5 py-7 lg:flex; }
+  .recipient-chip { @apply my-9 flex flex-col border-y py-5; }
+  .recipient-chip span, .recipient-chip small { @apply text-xs text-ink-soft; }
+  .recipient-chip strong { @apply mt-1 font-serif text-2xl font-semibold; }
+  .desktop-nav { @apply flex flex-1 flex-col justify-between; }
+  .desktop-nav > div { @apply flex flex-col gap-1; }
+  .nav-secondary { @apply mt-8 border-t pt-5; }
+  .nav-link { @apply flex min-h-11 items-center gap-3 rounded-md px-3 text-sm font-semibold text-ink-soft no-underline transition hover:bg-teal-tint hover:text-teal-deep; }
+  .nav-link[aria-current='page'] { @apply bg-teal-tint text-teal-deep; }
+  .nav-link svg { @apply h-[18px] w-[18px] shrink-0; }
+  .sidebar-footer { @apply mt-8 flex flex-col gap-2 border-t pt-5; }
+  .help-trigger { @apply flex min-h-11 items-center justify-center gap-2 rounded-md border border-terracotta px-3 text-sm font-semibold text-[#743d2e] transition hover:bg-terracotta-tint; }
+  .help-trigger svg { @apply h-[18px] w-[18px]; }
+  .sign-out-link { @apply flex min-h-11 w-full items-center gap-2 text-left text-sm font-semibold text-ink-soft; }
+  .sign-out-link svg, .app-header .text-action svg { @apply h-[18px] w-[18px]; }
+  .app-header .text-action { @apply inline-flex items-center gap-2; }
+  .mobile-app-header { @apply sticky top-0 z-20 flex min-h-16 items-center justify-between border-b bg-bg/95 px-4 backdrop-blur lg:hidden; }
+  .mobile-app-header > span { @apply max-w-28 truncate text-sm font-semibold; }
+  .mobile-header-actions { @apply flex items-center gap-1; }
+  .mobile-settings { @apply flex h-10 w-10 items-center justify-center rounded-md text-teal-deep; }
+  .mobile-settings svg { @apply h-5 w-5; }
+  .mobile-app-header .help-trigger { @apply min-h-10 px-2 text-xs; }
+  .mobile-nav { @apply fixed inset-x-0 bottom-0 z-20 grid grid-cols-4 border-t bg-panel pb-[env(safe-area-inset-bottom)] lg:hidden; }
+  .mobile-nav .nav-link { @apply min-h-16 flex-col justify-center gap-1 rounded-none px-1 text-[11px]; }
+  .app-main { @apply min-w-0 px-5 pb-28 pt-8 sm:px-8 lg:col-start-2 lg:px-[5vw] lg:pb-16 lg:pt-12; }
+  .page-stack { @apply mx-auto flex max-w-6xl flex-col gap-8; }
+  .narrow-page { @apply max-w-3xl; }
+  .page-heading { @apply max-w-4xl; }
+  .page-heading > p, .section-heading > div > p, .dashboard-aside > p { @apply mb-2 text-sm font-semibold text-teal-deep; }
+  .page-heading h1 { @apply max-w-3xl font-serif text-4xl font-medium leading-[1.08] sm:text-5xl; letter-spacing: -0.035em; }
+  .page-heading > span { @apply mt-4 block max-w-2xl text-base leading-7 text-ink-soft; }
+  .quick-actions { @apply flex flex-col gap-3 sm:flex-row; }
+  .primary-link, .secondary-link, .small-action { @apply inline-flex min-h-12 items-center justify-center rounded-md px-5 font-semibold no-underline transition; }
+  .primary-link svg, .secondary-link svg, .small-action svg { @apply h-[18px] w-[18px]; }
+  .primary-link { @apply bg-teal text-white shadow-[0_7px_18px_rgba(63,114,104,.2)] hover:bg-teal-deep; }
+  .secondary-link, .small-action { @apply border bg-panel text-teal-deep hover:bg-teal-tint; }
+  .dashboard-grid { @apply grid gap-6 xl:grid-cols-[minmax(0,1fr)_260px]; }
+  .content-section { @apply rounded-lg bg-panel p-5 shadow-card sm:p-7; }
+  .section-heading { @apply flex items-start justify-between gap-4 border-b pb-5; }
+  .section-heading h2 { @apply font-serif text-2xl font-semibold; }
+  .section-heading > a { @apply text-sm font-semibold text-teal-deep underline decoration-teal/30 underline-offset-4; }
+  .record-list { @apply divide-y; }
+  .record-list li { @apply grid grid-cols-[12px_minmax(0,1fr)] gap-3 py-5 sm:grid-cols-[12px_minmax(0,1fr)_auto]; }
+  .record-list time { @apply col-start-2 text-xs text-ink-soft sm:col-start-3; }
+  .record-list p { @apply mt-1 line-clamp-2 text-sm leading-6 text-ink-soft; }
+  .record-dot { @apply mt-2 h-2 w-2 rounded-full bg-gold; }
+  .dashboard-aside { @apply flex min-h-52 flex-col rounded-lg bg-teal-deep p-6 text-white; }
+  .dashboard-aside > p { @apply text-[#d9e8e3]; }
+  .dashboard-aside > strong { @apply font-serif text-6xl font-medium; }
+  .dashboard-aside > span { @apply text-sm text-[#d9e8e3]; }
+  .dashboard-aside > a { @apply mt-auto pt-8 font-semibold text-white underline decoration-white/30 underline-offset-4; }
+  .boundary-strip, .medication-boundary { @apply flex flex-col gap-1 border-t border-teal/25 pt-5 text-sm; }
+  .boundary-strip span, .medication-boundary span { @apply leading-6 text-ink-soft; }
+  .empty-state { @apply py-10 text-center; }
+  .empty-state h2, .empty-state h3 { @apply font-serif text-2xl font-semibold; }
+  .empty-state p { @apply mx-auto my-3 max-w-md leading-7 text-ink-soft; }
+  .empty-state a { @apply font-semibold text-teal-deep underline underline-offset-4; }
+  .compact-action { @apply w-fit; }
+
+  .log-form fieldset { @apply border-0 p-0; }
+  .log-form legend, .dose-form legend { @apply mb-3 font-serif text-xl font-semibold; }
+  .category-grid { @apply grid grid-cols-2 gap-2 sm:grid-cols-3; }
+  .category-grid button { @apply min-h-12 rounded-md border bg-panel px-3 text-sm font-semibold text-ink-soft transition hover:bg-teal-tint; }
+  .category-grid button[aria-pressed='true'] { @apply border-teal bg-teal-tint text-teal-deep ring-1 ring-teal; }
+  .intensity-row { @apply grid grid-cols-5 gap-2; }
+  .intensity-row label { @apply cursor-pointer; }
+  .intensity-row input { @apply sr-only; }
+  .intensity-row span { @apply flex min-h-12 items-center justify-center rounded-md border bg-panel font-semibold; }
+  .intensity-row input:checked + span { @apply border-teal bg-teal text-white ring-2 ring-teal/20; }
+  .scale-labels { @apply mt-2 flex justify-between text-xs text-ink-soft; }
+  .success-message { @apply rounded-md bg-teal-tint px-4 py-3 text-sm font-semibold text-teal-deep; }
+  .crisis-response { @apply order-first rounded-lg bg-terracotta-tint p-5 text-[#743d2e]; }
+  .crisis-response strong { @apply font-serif text-xl; }
+  .crisis-response p { @apply my-2 leading-6; }
+  .crisis-response a { @apply font-bold underline underline-offset-4; }
+  .timeline-layout { @apply grid gap-8 lg:grid-cols-[190px_minmax(0,1fr)]; }
+  .filter-panel { @apply flex flex-wrap content-start gap-2 lg:flex-col; }
+  .filter-panel h2 { @apply w-full font-serif text-xl font-semibold; }
+  .filter-panel a { @apply rounded-md px-3 py-2 text-sm text-ink-soft no-underline; }
+  .filter-panel a.active { @apply bg-teal-tint font-semibold text-teal-deep; }
+  .timeline-list { @apply relative border-l border-teal/25 pl-6; }
+  .timeline-list li { @apply relative grid gap-2 border-b py-6 sm:grid-cols-[145px_minmax(0,1fr)]; }
+  .timeline-list li::before { content: ''; @apply absolute -left-[29px] top-8 h-2.5 w-2.5 rounded-full bg-teal; }
+  .timeline-list time { @apply text-xs text-ink-soft; }
+  .timeline-list div > span { @apply mr-3 font-semibold text-teal-deep; }
+  .timeline-list div > strong { @apply text-xs font-medium text-ink-soft; }
+  .timeline-list p { @apply my-2 leading-7; }
+  .timeline-list small { @apply text-xs text-ink-soft; }
+
+  .medication-boundary { @apply rounded-lg bg-[#fff5ef] p-5 text-[#743d2e]; }
+  .medication-boundary span { @apply text-[#743d2e]; }
+  .inline-form { @apply rounded-lg bg-panel p-5 shadow-card sm:p-7; }
+  .medication-list { @apply grid gap-5 xl:grid-cols-2; }
+  .medication-card { @apply rounded-lg bg-panel p-5 shadow-card sm:p-6; }
+  .medication-title { @apply flex items-start justify-between gap-4; }
+  .medication-title span { @apply text-xs font-semibold uppercase tracking-wide text-teal-deep; }
+  .medication-title h2 { @apply mt-1 font-serif text-2xl font-semibold; }
+  .medication-title p { @apply mt-1 text-sm text-ink-soft; }
+  .small-action { @apply min-h-11 shrink-0 px-4 text-sm; }
+  .medication-card dl { @apply my-5 grid grid-cols-2 gap-4 border-y py-4; }
+  .medication-card dt { @apply text-xs text-ink-soft; }
+  .medication-card dd { @apply mt-1 text-sm font-semibold; }
+  .medication-card details summary { @apply cursor-pointer font-semibold text-teal-deep; }
+  .medication-card details ul { @apply mt-3 divide-y; }
+  .medication-card details li { @apply flex justify-between py-2 text-sm; }
+  .medication-card details li span { @apply capitalize; }
+  .muted-copy { @apply text-sm text-ink-soft; }
+  .dose-form { @apply mt-5 border-t pt-5; }
+  .status-options { @apply grid grid-cols-3 gap-2; }
+  .status-options input { @apply sr-only; }
+  .status-options span { @apply flex min-h-11 items-center justify-center rounded-md border capitalize; }
+  .status-options input:checked + span { @apply border-teal bg-teal-tint font-semibold text-teal-deep; }
+  .form-actions { @apply flex items-center gap-3; }
+  .profile-summary { @apply rounded-lg bg-teal-deep p-6 text-white; }
+  .profile-summary dl { @apply grid gap-5 sm:grid-cols-3; }
+  .profile-summary dt { @apply text-xs text-[#d9e8e3]; }
+  .profile-summary dd { @apply mt-1 font-semibold; }
+  .fact-row { @apply border-b py-6 last:border-0; }
+  .fact-row > div { @apply flex items-center gap-3; }
+  .fact-row h3 { @apply text-sm font-semibold capitalize; }
+  .source-badge { @apply rounded-full bg-teal-tint px-3 py-1 text-xs font-semibold text-teal-deep; }
+  .fact-row > p { @apply my-3 max-w-3xl leading-7; }
+  .fact-row > small { @apply text-xs text-ink-soft; }
+  .coming-soon { @apply rounded-lg bg-panel p-6 shadow-card sm:p-10; }
+  .coming-soon h2 { @apply font-serif text-2xl font-semibold; }
+  .coming-soon p { @apply my-4 max-w-2xl leading-7 text-ink-soft; }
+  .coming-soon a { @apply font-semibold text-teal-deep underline underline-offset-4; }
+
+  .consent-panel { @apply max-w-2xl rounded-lg bg-panel p-6 shadow-card sm:p-9; }
+  .consent-panel > p:first-child { @apply mb-2 text-sm font-semibold text-teal-deep; }
+  .consent-panel h2 { @apply font-serif text-3xl font-semibold; }
+  .consent-panel h2 + p { @apply my-5 leading-7 text-ink-soft; }
+  .consent-panel .primary-action { @apply max-w-sm; }
+  .settings-section, .first-run-panel { @apply rounded-xl bg-panel p-5 shadow-card sm:p-8; }
+  .provider-setup { @apply flex flex-col gap-6; }
+  .setup-intro { @apply flex items-start gap-4; }
+  .setup-intro > svg { @apply mt-1 h-6 w-6 shrink-0 text-teal; }
+  .setup-intro h2 { @apply font-serif text-3xl font-semibold; }
+  .setup-intro p { @apply mt-2 max-w-2xl leading-7 text-ink-soft; }
+  .provider-fieldset { @apply border-0 p-0; }
+  .provider-fieldset legend { @apply mb-3 text-sm font-semibold text-ink; }
+  .provider-options { @apply grid gap-3 md:grid-cols-2; }
+  .provider-option { @apply m-0 flex min-h-[156px] cursor-pointer items-start gap-3 rounded-xl border bg-panel p-4 transition hover:border-teal/60 sm:p-5; }
+  .provider-option:has(input:checked) { @apply border-2 border-teal bg-teal-tint; }
+  .provider-option:focus-within { @apply ring-2 ring-teal/30; }
+  .provider-option input { @apply mt-1 h-5 w-5 shrink-0 accent-teal; }
+  .provider-option > svg { @apply mt-1 h-5 w-5 shrink-0 text-ink-soft; }
+  .provider-copy { @apply flex flex-1 flex-col gap-2 text-sm leading-6; }
+  .provider-copy > small { @apply leading-5 text-ink-soft; }
+  .provider-title { @apply flex flex-row flex-wrap items-center gap-2; }
+  .provider-title > svg { @apply h-5 w-5 text-teal-deep; }
+  .provider-title strong { @apply text-base; }
+  .provider-badge { @apply rounded-full bg-teal-tint px-2 py-0.5 text-xs font-semibold text-teal-deep; }
+  .provider-badge.caution { @apply bg-[#fff0e9] text-[#743d2e]; }
+  .provider-openrouter { @apply border-[#dcb7a8]; }
+  .provider-disabled { @apply cursor-not-allowed bg-panel-2 text-ink-soft; }
+  .provider-credentials { @apply mx-auto flex w-full max-w-xl flex-col gap-4 rounded-xl bg-panel-2 p-4 sm:p-6; }
+  .privacy-acknowledgment { @apply flex min-h-12 cursor-pointer items-start gap-3 rounded-md bg-[#fff0e9] p-3 text-sm leading-6 text-[#743d2e]; }
+  .privacy-acknowledgment input { @apply mt-1 h-5 w-5 shrink-0 accent-terracotta; }
+  .privacy-acknowledgment span { @apply flex items-start gap-2; }
+  .privacy-acknowledgment svg { @apply mt-0.5 h-5 w-5 shrink-0; }
+  .provider-setup .secondary-link { @apply w-full gap-2; }
+  .key-field { @apply flex flex-col gap-2 text-sm font-semibold; }
+  .key-field input { @apply min-h-12 rounded-md border bg-panel px-4 font-normal outline-none focus:border-teal focus:ring-2 focus:ring-teal/20; }
+  .key-field small { @apply font-normal leading-5 text-ink-soft; }
+  .provider-setup > .small-action { @apply w-full; }
+  .connected-provider { @apply flex flex-col gap-5 pt-5 sm:flex-row sm:items-center sm:justify-between; }
+  .connected-provider p { @apply mt-1 max-w-xl text-sm leading-6 text-ink-soft; }
+  .connected-provider .small-action, .secondary-link { @apply gap-2; }
+  .connection-actions { @apply flex flex-col gap-2 sm:flex-row sm:items-center; }
+  .connection-actions .text-action { @apply inline-flex items-center justify-center gap-2; }
+  .connected-provider svg, .secondary-link svg, .connection-status svg, .companion-toolbar svg, .provider-required svg { @apply h-[18px] w-[18px]; }
+  .connection-status { @apply flex items-center gap-2 text-sm font-semibold text-teal-deep; }
+  .connection-notice { @apply flex items-center gap-2; }
+  .connection-notice svg { @apply h-5 w-5 shrink-0; }
+  .revoke-action { @apply text-terracotta; }
+  .privacy-setting { @apply mt-2 flex flex-col gap-4 border-t pt-6 sm:flex-row sm:items-center sm:justify-between; }
+  .privacy-setting p { @apply mt-1 max-w-xl text-sm leading-6 text-ink-soft; }
+  .chat-panel { @apply flex min-h-[600px] flex-col rounded-lg bg-panel shadow-card; }
+  .companion-toolbar { @apply flex flex-wrap items-center gap-x-5 gap-y-2 border-b px-5 py-3 text-sm; }
+  .companion-toolbar > span { @apply mr-auto flex items-center gap-2 font-semibold text-ink-soft; }
+  .companion-toolbar > span svg { @apply h-[18px] w-[18px]; }
+  .companion-toolbar a { @apply flex min-h-10 items-center gap-2 font-semibold text-teal-deep underline decoration-teal/30 underline-offset-4; }
+  .companion-toolbar .text-action { @apply min-h-10; }
+  .chat-history { @apply flex flex-1 flex-col gap-4 p-5 sm:p-7; }
+  .chat-message { @apply max-w-[88%] rounded-lg px-4 py-3; }
+  .chat-message > span { @apply text-xs font-semibold; }
+  .chat-message > p { @apply mt-1 whitespace-pre-wrap leading-7; }
+  .chat-message.caregiver { @apply ml-auto bg-teal text-white; }
+  .chat-message.assistant { @apply bg-panel-2 text-ink; }
+  .chat-composer { @apply border-t p-4 sm:p-5; }
+  .chat-composer label { @apply mb-2 block text-sm font-semibold; }
+  .chat-composer textarea { @apply w-full resize-y rounded-md border bg-panel px-4 py-3 outline-none focus:border-teal focus:ring-2 focus:ring-teal/20; }
+  .chat-composer .primary-action { @apply mt-3 gap-2 sm:ml-auto sm:w-auto; }
+  .chat-composer .primary-action svg { @apply h-[18px] w-[18px]; }
+  .companion-empty > svg { @apply mx-auto mb-4 h-8 w-8 text-teal; }
+  .prompt-examples { @apply mx-auto mt-5 flex max-w-xl flex-col gap-2 text-left; }
+  .prompt-examples > span { @apply text-xs font-semibold text-ink-soft; }
+  .prompt-examples button { @apply min-h-11 rounded-md border bg-panel px-4 py-2 text-left text-sm font-semibold text-teal-deep transition hover:bg-teal-tint; }
+  .thinking-status { @apply mx-5 mb-3 text-sm font-semibold text-teal-deep; }
+  .companion-error { @apply mx-5 mb-3; }
+  .provider-required { @apply mx-4 mb-4 flex flex-col items-start gap-3 rounded-md bg-teal-tint p-4 text-sm text-teal-deep sm:mx-5 sm:flex-row sm:items-center sm:justify-between; }
+  .provider-required .small-action { @apply gap-2 bg-panel; }
+
+  .help-dialog { @apply m-auto w-[calc(100%-2rem)] max-w-xl rounded-lg border-0 bg-panel p-0 text-ink shadow-[0_24px_70px_rgba(20,39,34,.28)]; }
+  .help-dialog::backdrop { background: rgba(23, 38, 34, 0.66); }
+  .help-dialog-inner { @apply relative p-6 sm:p-9; }
+  .dialog-close { @apply absolute right-4 top-4 flex h-10 w-10 items-center justify-center text-ink-soft; }
+  .dialog-close svg { @apply h-5 w-5; }
+  .safety-label { @apply mb-3 text-sm font-semibold text-terracotta; }
+  .help-dialog h2 { @apply max-w-md pr-14 font-serif text-3xl font-semibold leading-tight; }
+  .help-dialog h2 + p { @apply my-4 leading-7 text-ink-soft; }
+  .help-actions { @apply flex flex-col gap-3; }
+  .help-actions a { @apply flex min-h-16 items-center justify-between rounded-md bg-terracotta-tint px-4 text-[#743d2e] no-underline; }
+  .help-actions span { @apply text-sm font-semibold; }
+  .help-actions strong { @apply text-lg; }
+  .international-note { @apply mt-5 text-sm leading-6 text-ink-soft; }
+  .international-note a { @apply font-semibold text-teal-deep underline; }
+}
+
+@media (max-width: 639px) {
+  .story-copy h1, .onboarding-content h1, .onboarding-gate h1 { font-size: 2.4rem; }
+  .page-heading h1 { font-size: 2.45rem; }
+  .medication-title { @apply flex-col; }
+  .medication-title .small-action { @apply w-full; }
+  .chat-panel { @apply min-h-[520px]; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
