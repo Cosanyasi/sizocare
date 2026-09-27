@@ -34,6 +34,9 @@ const { error: acknowledgmentError } = await first.client.rpc('acknowledge_discl
 });
 if (acknowledgmentError) throw acknowledgmentError;
 
+const { error: spoofError } = await first.client.from('onboarding_state').update({ caregiver_id: second.user.id }).eq('caregiver_id', first.user.id);
+if (!spoofError) throw new Error('Authenticated users must not directly mutate or spoof onboarding ownership');
+
 const { data: recipients, error: recipientError } = await first.client
   .from('care_recipients')
   .select('id, owner_caregiver_id');
@@ -48,6 +51,21 @@ const { data: leakedRows, error: rlsError } = await second.client
 if (rlsError || leakedRows?.length !== 0) {
   throw rlsError ?? new Error('Cross-caregiver RLS leaked a recipient row');
 }
+
+const { data: reserved, error: reserveError } = await first.client.rpc('reserve_document_upload', {
+  p_original_filename: 'care plan.pdf', p_file_type: 'pdf', p_size_bytes: 2048,
+});
+if (reserveError || !reserved?.storage_path?.startsWith(`${first.user.id}/`)) throw reserveError ?? new Error('Secure document reservation failed');
+const { data: leakedDocuments } = await second.client.from('documents').select('id').eq('id', reserved.id);
+if (leakedDocuments?.length) throw new Error('Cross-caregiver RLS leaked document metadata');
+
+const waitlistEmail = `interest-${suffix}@example.test`;
+const { error: waitlistError } = await first.client.rpc('join_feature_waitlist', { p_feature: 'chatgpt_login', p_email: waitlistEmail });
+if (waitlistError) throw waitlistError;
+const { error: duplicateWaitlistError } = await first.client.rpc('join_feature_waitlist', { p_feature: 'chatgpt_login', p_email: waitlistEmail });
+if (duplicateWaitlistError) throw new Error('Duplicate waitlist interest should be idempotent');
+const { data: hiddenWaitlist, error: hiddenWaitlistError } = await first.client.from('feature_waitlist').select('email');
+if (!hiddenWaitlistError || hiddenWaitlist?.length) throw new Error('Collected waitlist addresses must not be directly readable');
 
 const { error: profileError } = await first.client.rpc('complete_case_profile', {
   p_preferred_name: 'Priya',

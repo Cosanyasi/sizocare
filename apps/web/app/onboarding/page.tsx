@@ -6,6 +6,7 @@ import { DisclaimerForm } from './disclaimer-form';
 import { ProfileForm } from './profile-form';
 import { SignOutButton } from '@/components/sign-out-button';
 import { CrisisLine } from '@/components/crisis-line';
+import { DocumentUpload } from './document-upload';
 
 export default async function OnboardingPage() {
   const supabase = await createClient();
@@ -24,7 +25,8 @@ export default async function OnboardingPage() {
           <h1 id="onboarding-title">Let&apos;s begin with what you know.</h1>
           <p className="lead">A few lines about your family member will help SizoCare keep future notes grounded in their real story.</p>
           <div className="next-step"><p>Case profile</p><h2>Tell their story in your own words</h2><p>You will review everything before it becomes part of the private profile.</p></div>
-          <ProfileForm />
+           <ProfileForm />
+           <DocumentUpload />
           <p className="boundary-note">Companion and daily logging stay unavailable until you add some case context.</p>
         </section>
       )}

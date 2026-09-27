@@ -17,7 +17,7 @@ export function DisclaimerForm() {
     setError(undefined);
     setLoading(true);
     try {
-      const result = await acknowledgeDisclaimer();
+      const result = await acknowledgeDisclaimer({ is_adult: adult, is_family_or_trusted_supporter: supporter });
       if (!result.success) {
         setError(result.message);
         setLoading(false);

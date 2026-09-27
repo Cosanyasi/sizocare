@@ -20,6 +20,22 @@ export const createDocumentRequestSchema = z.object({
   consent_id: z.string().uuid(),
 });
 
+export const patientDocumentUploadSchema = z.object({
+  name: z.string().trim().min(1).max(255),
+  type: z.enum([
+    'application/pdf',
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    'image/jpeg',
+    'image/png',
+  ]),
+  size: z.number().int().positive().max(26214400),
+});
+
+export const featureWaitlistRequestSchema = z.object({
+  feature: z.enum(['chatgpt_login', 'private_hosted_llm']),
+  email: z.string().trim().toLowerCase().email().max(320),
+});
+
 export const createDailyLogRequestSchema = z.object({
   category: LogCategoryEnum,
   intensity_rating: z.number().int().min(1).max(5).optional(),

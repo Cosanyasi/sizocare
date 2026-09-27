@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { CheckCircle2, Eye, EyeOff, KeyRound, LockKeyhole, ShieldCheck, TriangleAlert } from 'lucide-react';
 import { beginOpenRouterOAuth, setAiSession, type AiProvider } from '@/lib/ai-session';
 import { createClient } from '@/lib/supabase/client';
+import { FeatureWaitlistForm } from './feature-waitlist-form';
 
 type Provider = {
   id: AiProvider;
@@ -74,8 +75,8 @@ export function AiProviderSetup({ returnTo, onConnected }: { returnTo: 'companio
       <div className="setup-intro"><ShieldCheck aria-hidden="true" /><div><h2>Choose how Companion connects</h2><p>Your API key stays in this browser tab and is removed when the tab closes. It passes through SizoCare&apos;s server for each request but is not intentionally stored.</p></div></div>
       <fieldset className="provider-fieldset"><legend>Choose an AI provider</legend><div className="provider-options">
         {aiProviders.map((item) => <label className={`provider-option provider-${item.id}`} key={item.id}><input type="radio" name={`provider-${returnTo}`} checked={provider === item.id} onChange={() => setProvider(item.id)} /><span className="provider-copy"><span className="provider-title"><KeyRound aria-hidden="true" /><strong>{item.title}</strong>{item.id === 'google' ? <small className="provider-badge">Recommended</small> : item.id === 'openrouter' ? <small className="provider-badge caution">Least private</small> : null}</span><span>{item.description}</span><small>{item.note}</small></span></label>)}
-        <div className="provider-option provider-disabled" aria-disabled="true"><KeyRound aria-hidden="true" /><span className="provider-copy"><span className="provider-title"><strong>ChatGPT Plus / Pro</strong><small className="provider-badge">Codex OAuth · Pending</small></span><span>Use the Codex access included with an eligible ChatGPT subscription.</span><small>This requires a SizoCare-specific OpenAI OAuth client and uses the Codex model catalog, not the standard OpenAI API.</small></span></div>
-        <div className="provider-option provider-disabled" aria-disabled="true"><LockKeyhole aria-hidden="true" /><span className="provider-copy"><span className="provider-title"><strong>SizoCare Private</strong><small className="provider-badge">Coming later · Paid</small></span><span>A future managed connection without bringing your own API key.</span><small>Not available yet. Pricing will be shown before you choose it.</small></span></div>
+        <div className="provider-option provider-coming-soon"><KeyRound aria-hidden="true" /><div className="provider-copy"><span className="provider-title"><strong>ChatGPT Login</strong><small className="provider-badge">Coming Soon</small></span><span>Use eligible ChatGPT access through a future SizoCare-specific connection.</span><small>Expressing interest gets you notified and helps us prioritise and ship it faster.</small><FeatureWaitlistForm feature="chatgpt_login" label="ChatGPT Login" /></div></div>
+        <div className="provider-option provider-coming-soon"><LockKeyhole aria-hidden="true" /><div className="provider-copy"><span className="provider-title"><strong>More private hosted AI</strong><small className="provider-badge">Coming Soon · Paid</small></span><span>A paid, first-party or self-hosted option designed to reduce third-party data sharing.</span><small>Expressing interest gets you notified and helps motivate and prioritise faster shipping.</small><FeatureWaitlistForm feature="private_hosted_llm" label="the more private hosted option" /></div></div>
       </div></fieldset>
 
       <div className="provider-credentials">

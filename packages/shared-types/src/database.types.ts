@@ -569,6 +569,12 @@ export type Database = {
           },
         ]
       }
+      feature_waitlist: {
+        Row: { caregiver_id: string; created_at: string; email: string; feature: string; id: string }
+        Insert: { caregiver_id: string; created_at?: string; email: string; feature: string; id?: string }
+        Update: { caregiver_id?: string; created_at?: string; email?: string; feature?: string; id?: string }
+        Relationships: []
+      }
       idempotency_keys: {
         Row: {
           caregiver_id: string
@@ -855,6 +861,22 @@ export type Database = {
           isOneToOne: true
           isSetofReturn: false
         }
+      }
+      join_feature_waitlist: {
+        Args: { p_email: string; p_feature: string }
+        Returns: boolean
+      }
+      queue_document: {
+        Args: { p_document_id: string }
+        Returns: Database['public']['Tables']['documents']['Row']
+      }
+      reserve_document_upload: {
+        Args: { p_file_type: string; p_original_filename: string; p_size_bytes: number }
+        Returns: Database['public']['Tables']['documents']['Row']
+      }
+      start_new_conversation: {
+        Args: never
+        Returns: Database['public']['Tables']['conversations']['Row']
       }
       create_daily_log: {
         Args: {
