@@ -5,13 +5,15 @@ import { redirect } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
 import { acknowledgeDisclaimerRequestSchema } from '@sizocare/validation';
 
-export type AcknowledgeDisclaimerResult =
-  | { success: true }
-  | { success: false; message: string };
+export type AcknowledgeDisclaimerResult = { success: true } | { success: false; message: string };
 
-export async function acknowledgeDisclaimer(input: { is_adult: boolean; is_family_or_trusted_supporter: boolean }): Promise<AcknowledgeDisclaimerResult> {
+export async function acknowledgeDisclaimer(input: {
+  is_adult: boolean;
+  is_family_or_trusted_supporter: boolean;
+}): Promise<AcknowledgeDisclaimerResult> {
   const eligibility = acknowledgeDisclaimerRequestSchema.safeParse(input);
-  if (!eligibility.success) return { success: false, message: 'Confirm both statements to continue.' };
+  if (!eligibility.success)
+    return { success: false, message: 'Confirm both statements to continue.' };
   const supabase = await createClient();
   const { data: authData, error: authError } = await supabase.auth.getUser();
 
@@ -33,7 +35,10 @@ export async function acknowledgeDisclaimer(input: { is_adult: boolean; is_famil
       hint: error.hint,
       message: error.message,
     });
-    return { success: false, message: `The acknowledgment could not be saved. Please try again. Reference: ${diagnosticId.slice(0, 8)}` };
+    return {
+      success: false,
+      message: `The acknowledgment could not be saved. Please try again. Reference: ${diagnosticId.slice(0, 8)}`,
+    };
   }
 
   revalidatePath('/onboarding');

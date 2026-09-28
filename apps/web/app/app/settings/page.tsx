@@ -3,7 +3,12 @@ import { getAuthenticatedContext } from '@/lib/app-data';
 
 export default async function SettingsPage() {
   const { supabase } = await getAuthenticatedContext({ requireActive: true });
-  const { data: consent } = await supabase.from('consent_records').select('id').eq('consent_type', 'ai_processing').is('revoked_at', null).maybeSingle();
+  const { data: consent } = await supabase
+    .from('consent_records')
+    .select('id')
+    .eq('consent_type', 'ai_processing')
+    .is('revoked_at', null)
+    .maybeSingle();
   return (
     <div className="page-stack narrow-page">
       <header className="page-heading">

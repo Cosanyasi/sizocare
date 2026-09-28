@@ -40,7 +40,10 @@ export const createDailyLogRequestSchema = z.object({
   category: LogCategoryEnum,
   intensity_rating: z.number().int().min(1).max(5).optional(),
   free_text: z.string().trim().max(2000).optional(),
-  observed_at: z.string().datetime().refine(notInFuture, 'Observation time cannot be in the future'),
+  observed_at: z
+    .string()
+    .datetime()
+    .refine(notInFuture, 'Observation time cannot be in the future'),
 });
 
 export const createMedicationEventRequestSchema = z.object({

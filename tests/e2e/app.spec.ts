@@ -10,7 +10,11 @@ test.describe('Authentication', () => {
     await page.goto('/', { waitUntil: 'domcontentloaded' });
     await expect(page).toHaveTitle(/SizoCare/);
     await expect(page).toHaveURL(/\/auth$/);
-    await expect(page.getByRole('heading', { name: 'Care starts with a steady place to think.' })).toBeVisible();
-    await expect(page.getByText(/SizoCare is an organisational and reflective support tool/)).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: 'Care starts with a steady place to think.' }),
+    ).toBeVisible();
+    await expect(
+      page.getByText(/SizoCare is an organisational and reflective support tool/),
+    ).toBeVisible();
   });
 });

@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: SizoCare Public API
-  version: "1.0.0"
+  version: '1.0.0'
   description: Public API for the SizoCare caregiver companion platform.
 servers:
   - url: https://api.sizocare.com
@@ -28,7 +28,7 @@ paths:
                 content:
                   type: string
       responses:
-        "200":
+        '200':
           description: Message posted successfully
   /v1/care-recipients/{care_recipient_id}/case-facts:
     post:
@@ -58,7 +58,7 @@ paths:
                 provenance:
                   type: string
       responses:
-        "201":
+        '201':
           description: Case fact created
   /v1/care-recipients/{care_recipient_id}/documents:
     post:
@@ -88,7 +88,7 @@ paths:
                 content_type:
                   type: string
       responses:
-        "201":
+        '201':
           description: Document upload initiated
   /v1/care-recipients/{care_recipient_id}/logs:
     post:
@@ -120,7 +120,7 @@ paths:
                   type: string
                   format: date-time
       responses:
-        "201":
+        '201':
           description: Daily log created
   /v1/care-recipients/{care_recipient_id}/medications/{medication_id}/events:
     post:
@@ -155,7 +155,7 @@ paths:
                 notes:
                   type: string
       responses:
-        "201":
+        '201':
           description: Medication event recorded
   /v1/care-recipients/{care_recipient_id}/summaries/generate:
     post:
@@ -184,11 +184,11 @@ paths:
                   type: string
                   format: date-time
       responses:
-        "202":
+        '202':
           description: Summary generation started
   /v1/crisis-resources:
     get:
       summary: Retrieve crisis resources
       responses:
-        "200":
+        '200':
           description: Crisis resources retrieved

@@ -1,14 +1,46 @@
 import { z } from 'zod';
 
-export const ProvenanceEnum = z.enum(['caregiver_reported', 'patient_reported', 'document_extracted', 'ai_organized']);
+export const ProvenanceEnum = z.enum([
+  'caregiver_reported',
+  'patient_reported',
+  'document_extracted',
+  'ai_organized',
+]);
 export const ConsentTypeEnum = z.enum(['ai_processing', 'document_ai_processing', 'analytics']);
-export const LogCategoryEnum = z.enum(['mood', 'sleep', 'appetite', 'social_interaction', 'agitation', 'suspiciousness', 'unusual_belief', 'hallucination_related', 'medication_adherence', 'self_care', 'daily_functioning', 'notable_incident', 'appointment', 'caregiver_note']);
+export const LogCategoryEnum = z.enum([
+  'mood',
+  'sleep',
+  'appetite',
+  'social_interaction',
+  'agitation',
+  'suspiciousness',
+  'unusual_belief',
+  'hallucination_related',
+  'medication_adherence',
+  'self_care',
+  'daily_functioning',
+  'notable_incident',
+  'appointment',
+  'caregiver_note',
+]);
 export const MedicationStatusEnum = z.enum(['active', 'discontinued']);
 export const MedicationEventStatusEnum = z.enum(['taken', 'missed', 'unknown']);
 export const CareRecipientStatusEnum = z.enum(['active', 'suspended', 'deleted']);
 export const CaseFactStatusEnum = z.enum(['pending_review', 'active', 'superseded', 'deleted']);
-export const CaseFactTypeEnum = z.enum(['story_narrative', 'structured_field', 'document_extracted', 'ai_organized']);
-export const DocumentStatusEnum = z.enum(['uploading', 'processing', 'extracted', 'reviewed', 'failed', 'deleted']);
+export const CaseFactTypeEnum = z.enum([
+  'story_narrative',
+  'structured_field',
+  'document_extracted',
+  'ai_organized',
+]);
+export const DocumentStatusEnum = z.enum([
+  'uploading',
+  'processing',
+  'extracted',
+  'reviewed',
+  'failed',
+  'deleted',
+]);
 export const ConversationStatusEnum = z.enum(['active', 'archived', 'deleted']);
 export const MessageRoleEnum = z.enum(['caregiver', 'assistant']);
 export const ChangeSignalDirectionEnum = z.enum(['increase', 'decrease']);

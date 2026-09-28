@@ -11,5 +11,10 @@ export function SignOutButton({ compact = false }: { compact?: boolean }) {
     window.location.assign('/auth');
   }
 
-  return <button className={compact ? 'text-action' : 'sign-out-link'} type="button" onClick={signOut}><LogOut aria-hidden="true" />Sign out</button>;
+  return (
+    <button className={compact ? 'text-action' : 'sign-out-link'} type="button" onClick={signOut}>
+      <LogOut aria-hidden="true" />
+      Sign out
+    </button>
+  );
 }
