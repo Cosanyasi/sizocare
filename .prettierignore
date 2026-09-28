@@ -1,0 +1,15 @@
+.agents/
+.claude/
+.codex/
+.opencode/
+.next/
+coverage/
+dist/
+node_modules/
+pnpm-lock.yaml
+SizoCare_AI_Agent_Instructions.md
+SizoCare_Architecture_Requirements.md
+SizoCare_Data_API_Specifications.md
+SizoCare_Manifest.md
+SizoCare_MVP_Implementation_Plan.md
+SizoCare_PRD.md

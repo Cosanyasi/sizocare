@@ -7,14 +7,17 @@
 
 // --- Type Aliases (for type-safety in function signatures) ---
 
-export type Provenance = 'caregiver_reported' | 'patient_reported' | 'document_extracted' | 'ai_organized';
+export type Provenance =
+  'caregiver_reported' | 'patient_reported' | 'document_extracted' | 'ai_organized';
 export type ConsentType = 'ai_processing' | 'document_ai_processing' | 'analytics';
 export type MedicationStatus = 'active' | 'discontinued';
 export type MedicationEventStatus = 'taken' | 'missed' | 'unknown';
 export type CareRecipientStatus = 'active' | 'suspended' | 'deleted';
 export type CaseFactStatus = 'pending_review' | 'active' | 'superseded' | 'deleted';
-export type CaseFactType = 'story_narrative' | 'structured_field' | 'document_extracted' | 'ai_organized';
-export type DocumentStatus = 'uploading' | 'processing' | 'extracted' | 'reviewed' | 'failed' | 'deleted';
+export type CaseFactType =
+  'story_narrative' | 'structured_field' | 'document_extracted' | 'ai_organized';
+export type DocumentStatus =
+  'uploading' | 'processing' | 'extracted' | 'reviewed' | 'failed' | 'deleted';
 export type ConversationStatus = 'active' | 'archived' | 'deleted';
 export type MessageRole = 'caregiver' | 'assistant';
 export type ChangeSignalDirection = 'increase' | 'decrease';

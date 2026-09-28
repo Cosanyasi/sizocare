@@ -10,9 +10,12 @@ import { copy } from '@/lib/copy';
 type Mode = 'signup' | 'login';
 
 function safeAuthMessage(message: string) {
-  if (message.toLowerCase().includes('invalid login')) return 'The email or password did not match.';
-  if (message.toLowerCase().includes('already registered')) return 'An account already exists for this email.';
-  if (message.toLowerCase().includes('password')) return 'Use a password with at least 8 characters.';
+  if (message.toLowerCase().includes('invalid login'))
+    return 'The email or password did not match.';
+  if (message.toLowerCase().includes('already registered'))
+    return 'An account already exists for this email.';
+  if (message.toLowerCase().includes('password'))
+    return 'Use a password with at least 8 characters.';
   return 'We could not complete that request. Check your connection and try again.';
 }
 
@@ -34,7 +37,10 @@ export function AuthForm() {
     setIsLoading(true);
     const { error: oauthError } = await createClient().auth.signInWithOAuth({
       provider: 'google',
-      options: { redirectTo: `${window.location.origin}/auth/callback`, queryParams: { access_type: 'offline', prompt: 'consent' } },
+      options: {
+        redirectTo: `${window.location.origin}/auth/callback`,
+        queryParams: { access_type: 'offline', prompt: 'consent' },
+      },
     });
     if (oauthError) {
       setError('Google sign-in could not start. Try another sign-in method.');
@@ -72,9 +78,10 @@ export function AuthForm() {
 
     setIsLoading(true);
     const supabase = createClient();
-    const result = mode === 'signup'
-      ? await supabase.auth.signUp({ email, password })
-      : await supabase.auth.signInWithPassword({ email, password });
+    const result =
+      mode === 'signup'
+        ? await supabase.auth.signUp({ email, password })
+        : await supabase.auth.signInWithPassword({ email, password });
 
     if (result.error) {
       setError(safeAuthMessage(result.error.message));
@@ -95,7 +102,9 @@ export function AuthForm() {
       });
       if (disclaimerError) {
         await supabase.auth.signOut();
-        setError('Your account was created, but the acknowledgment was not saved. Sign in to try again.');
+        setError(
+          'Your account was created, but the acknowledgment was not saved. Sign in to try again.',
+        );
         setIsLoading(false);
         return;
       }
@@ -129,35 +138,129 @@ export function AuthForm() {
     <div className="auth-panel">
       <div className="auth-tabs" aria-label="Account access">
         {(['signup', 'login'] as const).map((item) => (
-          <button key={item} type="button" aria-pressed={mode === item} className="auth-tab" disabled={!hydrated}
-            onClick={() => { setMode(item); setError(undefined); setNotice(undefined); }}>
+          <button
+            key={item}
+            type="button"
+            aria-pressed={mode === item}
+            className="auth-tab"
+            disabled={!hydrated}
+            onClick={() => {
+              setMode(item);
+              setError(undefined);
+              setNotice(undefined);
+            }}
+          >
             {item === 'signup' ? 'Create account' : 'Sign in'}
           </button>
         ))}
       </div>
 
       <form onSubmit={handlePassword} className="auth-form">
-        <button className="google-action" type="button" onClick={handleGoogle} disabled={isLoading || !hydrated}><span aria-hidden="true">G</span>Continue with Google</button><div className="auth-divider"><span>or use email</span></div>
-        <label><span>{copy.auth.emailLabel}</span><input name="email" type="email" autoComplete="email" required placeholder="you@example.com" disabled={!hydrated} /></label>
+        <button
+          className="google-action"
+          type="button"
+          onClick={handleGoogle}
+          disabled={isLoading || !hydrated}
+        >
+          <span aria-hidden="true">G</span>Continue with Google
+        </button>
+        <div className="auth-divider">
+          <span>or use email</span>
+        </div>
+        <label>
+          <span>{copy.auth.emailLabel}</span>
+          <input
+            name="email"
+            type="email"
+            autoComplete="email"
+            required
+            placeholder="you@example.com"
+            disabled={!hydrated}
+          />
+        </label>
         <label>
           <span>{copy.auth.passwordLabel}</span>
-          <span className="password-field"><input name="password" type={showPassword ? 'text' : 'password'} minLength={mode === 'signup' ? 8 : undefined} autoComplete={mode === 'signup' ? 'new-password' : 'current-password'} required disabled={!hydrated} placeholder={mode === 'signup' ? 'Create a password with at least 8 characters' : 'Enter your password'} aria-describedby={mode === 'signup' ? 'password-help' : undefined} /><button type="button" className="password-toggle" onClick={() => setShowPassword((visible) => !visible)} aria-label={showPassword ? 'Hide password' : 'Show password'} aria-pressed={showPassword}><span className="sr-only">{showPassword ? 'Hide password' : 'Show password'}</span>{showPassword ? <EyeOff aria-hidden="true" /> : <Eye aria-hidden="true" />}</button></span>
-          {mode === 'signup' ? <small id="password-help">At least 8 characters. No special characters required.</small> : null}
+          <span className="password-field">
+            <input
+              name="password"
+              type={showPassword ? 'text' : 'password'}
+              minLength={mode === 'signup' ? 8 : undefined}
+              autoComplete={mode === 'signup' ? 'new-password' : 'current-password'}
+              required
+              disabled={!hydrated}
+              placeholder={
+                mode === 'signup'
+                  ? 'Create a password with at least 8 characters'
+                  : 'Enter your password'
+              }
+              aria-describedby={mode === 'signup' ? 'password-help' : undefined}
+            />
+            <button
+              type="button"
+              className="password-toggle"
+              onClick={() => setShowPassword((visible) => !visible)}
+              aria-label={showPassword ? 'Hide password' : 'Show password'}
+              aria-pressed={showPassword}
+            >
+              <span className="sr-only">{showPassword ? 'Hide password' : 'Show password'}</span>
+              {showPassword ? <EyeOff aria-hidden="true" /> : <Eye aria-hidden="true" />}
+            </button>
+          </span>
+          {mode === 'signup' ? (
+            <small id="password-help">At least 8 characters. No special characters required.</small>
+          ) : null}
         </label>
 
         {mode === 'signup' ? (
           <fieldset className="disclaimer">
             <legend>{copy.disclaimer.title}</legend>
             <p>{copy.disclaimer.body}</p>
-            <label className="check-row"><input type="checkbox" checked={isAdult} disabled={!hydrated} onChange={(event) => setIsAdult(event.target.checked)} /><span>{copy.disclaimer.adult}</span></label>
-            <label className="check-row"><input type="checkbox" checked={isSupporter} disabled={!hydrated} onChange={(event) => setIsSupporter(event.target.checked)} /><span>{copy.disclaimer.supporter}</span></label>
+            <label className="check-row">
+              <input
+                type="checkbox"
+                checked={isAdult}
+                disabled={!hydrated}
+                onChange={(event) => setIsAdult(event.target.checked)}
+              />
+              <span>{copy.disclaimer.adult}</span>
+            </label>
+            <label className="check-row">
+              <input
+                type="checkbox"
+                checked={isSupporter}
+                disabled={!hydrated}
+                onChange={(event) => setIsSupporter(event.target.checked)}
+              />
+              <span>{copy.disclaimer.supporter}</span>
+            </label>
           </fieldset>
         ) : null}
 
-        {error ? <p className="form-message error" role="alert">{error}</p> : null}
-        {notice ? <p className="form-message" role="status">{notice}</p> : null}
-        <button className="primary-action" type="submit" disabled={isLoading || !hydrated}>{isLoading ? 'Please wait...' : mode === 'signup' ? 'Create my private space' : 'Sign in securely'}</button>
-        <button className="text-action" type="button" onClick={handleMagicLink} disabled={isLoading || !hydrated}>Email me a magic link instead</button>
+        {error ? (
+          <p className="form-message error" role="alert">
+            {error}
+          </p>
+        ) : null}
+        {notice ? (
+          <p className="form-message" role="status">
+            {notice}
+          </p>
+        ) : null}
+        <button className="primary-action" type="submit" disabled={isLoading || !hydrated}>
+          {isLoading
+            ? 'Please wait...'
+            : mode === 'signup'
+              ? 'Create my private space'
+              : 'Sign in securely'}
+        </button>
+        <button
+          className="text-action"
+          type="button"
+          onClick={handleMagicLink}
+          disabled={isLoading || !hydrated}
+        >
+          Email me a magic link instead
+        </button>
       </form>
     </div>
   );

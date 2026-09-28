@@ -11,8 +11,7 @@ export const copy = {
   },
   disclaimer: {
     title: 'Before you continue',
-    body:
-      'SizoCare is an organisational and reflective support tool for caregivers. It does not diagnose, prescribe, replace a clinician, or provide emergency care.',
+    body: 'SizoCare is an organisational and reflective support tool for caregivers. It does not diagnose, prescribe, replace a clinician, or provide emergency care.',
     adult: 'I confirm that I am 18 or older.',
     supporter: 'I am a family member or trusted supporter of the person I care for.',
   },

@@ -22,5 +22,8 @@ export function formatCategory(category: string) {
 }
 
 export function formatDate(value: string, options?: Intl.DateTimeFormatOptions) {
-  return new Intl.DateTimeFormat('en-IN', options ?? { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(value));
+  return new Intl.DateTimeFormat(
+    'en-IN',
+    options ?? { dateStyle: 'medium', timeStyle: 'short' },
+  ).format(new Date(value));
 }

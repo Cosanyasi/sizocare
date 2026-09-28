@@ -10,10 +10,10 @@
     "typecheck": "turbo typecheck",
     "test": "pnpm test:unit",
     "test:unit": "vitest run",
-    "test:integration": "turbo test:integration",
+    "test:integration": "node tests/integration/onboarding-rls.mjs",
     "test:e2e": "turbo test:e2e",
-    "format": "prettier --write \"**/*.{ts,tsx,md,json,yaml,yml}\"",
-    "format:check": "prettier --check \"**/*.{ts,tsx,md,json,yaml,yml}\"",
+    "format": "prettier --write \"**/*.{js,cjs,mjs,ts,tsx,md,json,yaml,yml}\"",
+    "format:check": "prettier --check \"**/*.{js,cjs,mjs,ts,tsx,md,json,yaml,yml}\"",
     "clean": "turbo clean",
     "db:start": "supabase start",
     "db:stop": "supabase stop",
@@ -23,19 +23,26 @@
     "db:push:dry": "supabase db push --dry-run"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.3.1",
     "@playwright/test": "^1.55.0",
     "@supabase/supabase-js": "^2.57.4",
     "@types/node": "^22.0.0",
     "eslint": "^9.0.0",
     "prettier": "^3.4.0",
+    "prettier-plugin-tailwindcss": "^0.6.14",
     "supabase": "^2.117.0",
     "turbo": "^2.3.0",
     "typescript": "^5.7.0",
-    "vitest": "^3.0.0"
+    "vitest": "^4.1.11"
   },
   "engines": {
-    "node": ">=20.0.0",
+    "node": ">=22.0.0",
     "pnpm": ">=9.0.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "postcss": "8.5.28"
+    }
   },
   "packageManager": "pnpm@9.15.0"
 }

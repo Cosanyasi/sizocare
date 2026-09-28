@@ -9,11 +9,11 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
     return (
       <div
         ref={ref}
-        className={`bg-panel rounded-lg border border-border shadow-card overflow-hidden ${className}`}
+        className={`bg-panel border-border shadow-card overflow-hidden rounded-lg border ${className}`}
         {...props}
       />
     );
-  }
+  },
 );
 
 Card.displayName = 'Card';
